@@ -83,6 +83,7 @@ func (c *Conn) availableCaps() []imap.Cap {
 				imap.CapStatusSize,
 				imap.CapBinary,
 				imap.CapChildren,
+				imap.CapID,
 			})
 		}
 
