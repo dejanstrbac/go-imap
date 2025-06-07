@@ -93,6 +93,7 @@ func (c *Conn) availableCaps() []imap.Cap {
 			imap.CapUnauthenticate,
 			imap.CapSort,
 			imap.CapSortDisplay,
+			imap.CapESort,
 		})
 	}
 	return caps
