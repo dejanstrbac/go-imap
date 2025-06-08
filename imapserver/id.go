@@ -67,7 +67,9 @@ func (c *Conn) handleID(tag string, dec *imapwire.Decoder) error {
 		enc.Special(')')
 	}
 
-	if err := enc.CRLF(); err != nil {
+	err = enc.CRLF()
+	enc.end()
+	if err != nil {
 		return err
 	}
 
