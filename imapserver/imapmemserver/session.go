@@ -139,14 +139,3 @@ func (sess *UserSession) Idle(w *imapserver.UpdateWriter, stop <-chan struct{}) 
 	}
 	return sess.mailbox.Idle(w, stop)
 }
-
-// Sort implements the imapserver.SessionSort interface.
-func (sess *UserSession) Sort(numKind imapserver.NumKind, criteria *imap.SearchCriteria, sortCriteria []imap.SortCriterion) (*imapserver.SortData, error) {
-	if sess.mailbox == nil {
-		return nil, &imap.Error{
-			Type: imap.StatusResponseTypeNo,
-			Text: "No mailbox selected",
-		}
-	}
-	return sess.mailbox.Sort(numKind, criteria, sortCriteria)
-}
