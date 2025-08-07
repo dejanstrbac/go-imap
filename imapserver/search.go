@@ -106,7 +106,10 @@ func (c *Conn) writeESearch(tag string, data *imap.SearchData, options *imap.Sea
 	// When there is no result, we need to send an ESEARCH response with no ALL
 	// keyword
 	if options.ReturnAll {
-		enc.SP().Atom("ALL").SP().NumSet(data.All)
+		enc.SP().Atom("ALL")
+		if data.All != nil && !isNumSetEmpty(data.All) {
+			enc.SP().NumSet(data.All)
+		}
 	}
 	if options.ReturnMin && data.Min > 0 {
 		enc.SP().Atom("MIN").SP().Number(data.Min)
