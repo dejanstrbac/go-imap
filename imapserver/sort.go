@@ -189,7 +189,7 @@ func (c *Conn) writeSortResponse(tag string, numKind NumKind, data *SortData, re
 	if c.server.options.caps().Has(imap.CapESort) && !returnOpts.All {
 		enc.Atom("*").SP().Atom("ESEARCH")
 		if tag != "" {
-			enc.SP().Special('(').Atom("TAG").SP().Atom(tag).Special(')')
+			enc.SP().Special('(').Atom("TAG").SP().String(tag).Special(')')
 		}
 		if numKind == NumKindUID {
 			enc.SP().Atom("UID")
