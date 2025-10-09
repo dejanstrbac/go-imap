@@ -125,7 +125,11 @@ func (c *Client) handleMetadata() error {
 	case *GetMetadataCommand:
 		// The server might send multiple METADATA responses for a single
 		// METADATA command
-		populateMetadata(cmd.data, data)
+		metaData := &GetMetadataData{
+			Mailbox: data.Mailbox,
+			Entries: data.EntryValues,
+		}
+		populateMetadata(&cmd.data, metaData)
 	case *ListCommand:
 		// TODO: populateMetadata(cmd.pendingData.Metadata, data)
 		// TODO: send to chan
@@ -139,14 +143,14 @@ func (c *Client) handleMetadata() error {
 }
 
 func populateMetadata(dst, src *GetMetadataData) {
-	cmd.data.Mailbox = data.Mailbox
-	if cmd.data.Entries == nil {
-		cmd.data.Entries = make(map[string]*[]byte)
+	dst.Mailbox = src.Mailbox
+	if dst.Entries == nil {
+		dst.Entries = make(map[string]*[]byte)
 	}
 	// The server might send multiple METADATA responses for a single
 	// METADATA command
-	for k, v := range data.EntryValues {
-		cmd.data.Entries[k] = v
+	for k, v := range src.Entries {
+		dst.Entries[k] = v
 	}
 }
 
